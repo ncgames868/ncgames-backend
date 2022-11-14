@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 require('dotenv').config();
 const axios = require('axios');
 const API_KEY = process.env.API_KEY; // '60fb2544d2e0470a9b1dd79552c621da'; //
@@ -24,15 +25,24 @@ app.get('/games', async (req, res) => {
   const results = resp.data.results;
   const games = [];
   results.forEach((e) => {
+    // Eliminamos las plataformas android y iOs
+    if (e.platforms) {
+      const platforms = e.platforms.filter((p) => {
+        console.log('p', p);
+        return p.platform.name !== 'Android' && p.platform.name !== 'iOS';
+      });
+      e.platforms = platforms;
+      console.log('actual', e.platforms);
+    }
     games.push({
       id: e.id,
       name: e.name,
       background_image: e.background_image,
       platforms: e.platforms,
-      genres: e.genres,
+      categories: e.genres,
       //   tags: e.tags,
       released: e.released,
-      esrb_rating: e.esrb_rating,
+      esrb: e.esrb_rating,
       //   short_screenshots: e.short_screenshots
     });
   });
@@ -87,3 +97,8 @@ const server = app.listen(PORT, () => {
 });
 
 server.on('error', (error) => console.log('Error: ', error.message));
+
+mongoose.connect('mongodb://localhost/gamesdb', (err) => {
+  if (err) throw err;
+  console.log('Conectado exitosamente a GamesDB');
+});
