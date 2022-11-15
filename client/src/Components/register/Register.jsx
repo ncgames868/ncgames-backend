@@ -21,6 +21,183 @@ const Register = () => {
     (passwordRepeatView === 'password') ? setPasswordRepeatView('text') : setPasswordRepeatView('password')
   }
 
+  // PARA DARLE COLOR A LOS CHECKS DEPENDIENDO DE LA CONTRASEÑA QUE ESTAMOS ESCRIBIENDO
+
+  const [password, setPassword] = useState('')
+  const [repeatedPassword, setRepeatedPassword] = useState('')
+  const [repeatPasswordCheck, setRepeatPasswordCheck] = useState('#000')
+  const [checkPasswordRepeatStatus, setCheckPasswordRepeatStatus] = useState({
+    xmark: 'hide',
+    exclamation: '',
+    check: 'hide'
+  })
+
+  const [lengthIsRigth, setLengthIsRigth] = useState('#000')
+  const [checkLengthStatus, setCheckLengthStatus] = useState({
+    xmark: 'hide',
+    exclamation: '',
+    check: 'hide'
+  })
+
+  const [containNumbers, setContainNumbers] = useState()
+  const [containCapital, setContainCapital] = useState()
+  const [containSymbol, setContainSymbol] = useState()
+  const [containRequiredCharacters, setContainRequiredCharacters] = useState('#000')
+  const [checkCharactersStatus, setCheckCharactersStatus] = useState({
+    xmark: 'hide',
+    exclamation: '',
+    check: 'hide'
+  })
+
+  const checkPassword = (e) => {
+
+    let currentPassword = e.target.value
+    setPassword(currentPassword)
+    
+    // PARA VERIFICAR LA LONGITUD CORRECTA
+    
+    if (currentPassword.length >= 8) {
+      setLengthIsRigth('#007000')
+      setCheckLengthStatus({
+        xmark: 'hide',
+        exclamation: 'hide',
+        check: ''
+      })
+    } else
+    if (currentPassword.length !== 0) {
+      setLengthIsRigth('#a80000')
+      setCheckLengthStatus({
+        xmark: '',
+        exclamation: 'hide',
+        check: 'hide'
+      })
+    } else {
+      setLengthIsRigth('#000')
+      setCheckLengthStatus({
+        xmark: 'hide',
+        exclamation: '',
+        check: 'hide'
+      })
+    }
+
+    //PARA VERIFICAR SI TIENE LOS CARACTERES REQUERIDOS
+
+    const numbers = '0123456789'
+    const capitals = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'
+    const symbols = " !#$%&'()*+,-.ªº?¿/:;<=>?@][^_`{|}~"
+
+    const containANumber = () => {
+      for(let i=0; i < currentPassword.length; i++){
+        if (numbers.indexOf(currentPassword.charAt(i), 0) !== -1 ) {
+          return setContainNumbers(true)
+        }
+      }
+      return setContainNumbers(false)
+    }
+    containANumber()
+
+    const containACapital = () => {
+      for(let i=0; i < currentPassword.length; i++){
+        if (capitals.indexOf(currentPassword.charAt(i), 0) !== -1 ) {
+          return setContainCapital(true)
+        }
+      }
+      return setContainCapital(false)
+    }
+    containACapital()
+
+    const containASymbol = () => {
+      for(let i=0; i < currentPassword.length; i++){
+        if (symbols.indexOf(currentPassword.charAt(i), 0) !== -1 ) {
+          return setContainSymbol(true)
+        }
+      }
+      return setContainSymbol(false)
+    }
+    containASymbol()
+    
+    if (currentPassword.length === 0) {
+      setRepeatPasswordCheck('#000')
+      setCheckPasswordRepeatStatus({
+        xmark: 'hide',
+        exclamation: '',
+        check: 'hide'
+      })
+    } else if (currentPassword === repeatedPassword) {
+      setRepeatPasswordCheck('#007000')
+      setCheckPasswordRepeatStatus({
+        xmark: 'hide',
+        exclamation: 'hide',
+        check: ''
+      })
+    } else {
+      setRepeatPasswordCheck('#a80000')
+      setCheckPasswordRepeatStatus({
+        xmark: '',
+        exclamation: 'hide',
+        check: 'hide'
+      })
+    }
+  }
+
+  // CAMBIAR LOS SIMBOLOS SEGÚN EL ESTADO DE LOS CHECKS
+
+  useEffect(() => {
+    if(password.length === 0) {
+      setContainRequiredCharacters('#000')
+      setCheckCharactersStatus({
+        xmark: 'hide',
+        exclamation: '',
+        check: 'hide'
+      })
+    } else if (containNumbers === true || containCapital === true || containSymbol === true) {
+      setContainRequiredCharacters('#007000')
+      setCheckCharactersStatus({
+        xmark: 'hide',
+        exclamation: 'hide',
+        check: ''
+      })
+    } else {
+      setContainRequiredCharacters('#a80000')
+      setCheckCharactersStatus({
+        xmark: '',
+        exclamation: 'hide',
+        check: 'hide'
+      })
+    }
+  }, [containNumbers, containCapital, containSymbol, password])
+
+  // PARA VERIFICAR LA IGUALDAD DE LAS CONTRASEÑAS
+
+  const checkRepeatPassword = (e) => {
+
+    let repeatPassword = e.target.value
+    setRepeatedPassword(repeatPassword)
+
+    if (repeatPassword.length === 0) {
+      setRepeatPasswordCheck('#000')
+      setCheckPasswordRepeatStatus({
+        xmark: 'hide',
+        exclamation: '',
+        check: 'hide'
+      })
+    } else if (repeatPassword === password) {
+      setRepeatPasswordCheck('#007000')
+      setCheckPasswordRepeatStatus({
+        xmark: 'hide',
+        exclamation: 'hide',
+        check: ''
+      })
+    } else {
+      setRepeatPasswordCheck('#a80000')
+      setCheckPasswordRepeatStatus({
+        xmark: '',
+        exclamation: 'hide',
+        check: 'hide'
+      })
+    }
+  }
+
   return (
     <RegisterContainer>
       <div className='register__logo'>LOGO<br />o<br />NOMBRE</div>
@@ -39,28 +216,39 @@ const Register = () => {
             <input className='email__input-container' id ="email" type="email" />
             <label htmlFor="password">Password</label>
             <div className='password__input-container'>
-              <input id ="password" type={passwordView} />
+              <input onChange={checkPassword} id ="password" type={passwordView} />
               <img onClick={handlePasswordView} className='show-btn' src={EyeSlash} alt="" />
             </div>
             <label htmlFor="repeat__password">Repeat Password</label>
             <div className='password__input-container'>
-              <input id ="repeat__password" type={passwordRepeatView} />
+              <input onChange={checkRepeatPassword} id ="repeat__password" type={passwordRepeatView} />
               <img onClick={handlePasswordRepeatView} className='show-btn' src={EyeSlash} alt="" />
             </div>
           </div>
           <div className='password__requirements'>
             <div>
-              <div className="icon-container">
-                <i className="fa-solid fa-exclamation hide"></i>
-                <i className="fa-solid fa-xmark"></i>
-                <i style={{fontSize: '10px'}} className="fa-solid fa-check hide"></i>
+              <div className="icon-container" style={{color: lengthIsRigth}}>
+                <img className={checkLengthStatus.xmark} src={ErrorCheck} alt="error" />
+                <img className={checkLengthStatus.exclamation} src={InfoCheck} alt="info" />
+                <img className={checkLengthStatus.check} src={RightCheck} alt="check" />
               </div>
-              <p>At least 8 characters</p>
+              <p style={{color: lengthIsRigth}}>At least 8 characters</p>
             </div>
             <div>
-              <div className="icon-container"><i className="fa-solid fa-exclamation"></i></div>
-              <p>At least one number (0-8), special symbol 
-or one capital letter</p>
+              <div className="icon-container" style={{color: containRequiredCharacters}}>
+                <img className={checkCharactersStatus.xmark} src={ErrorCheck} alt="error" />
+                <img className={checkCharactersStatus.exclamation} src={InfoCheck} alt="info" />
+                <img className={checkCharactersStatus.check} src={RightCheck} alt="check" />
+              </div>
+              <p style={{color: containRequiredCharacters}}>At least one number (0-9), special symbol or one capital letter</p>
+            </div>
+            <div>
+              <div className="icon-container" style={{color: repeatPasswordCheck}}>
+                <img className={checkPasswordRepeatStatus.xmark} src={ErrorCheck} alt="error" />
+                <img className={checkPasswordRepeatStatus.exclamation} src={InfoCheck} alt="info" />
+                <img className={checkPasswordRepeatStatus.check} src={RightCheck} alt="check" />
+              </div>
+              <p style={{color: repeatPasswordCheck}}>Passwords must match</p>
             </div>
           </div>
           <button className='create__btn'>CREATE AN ACCOUNT</button>
@@ -143,7 +331,7 @@ const RegisterContainer = styled.div`
         width: 100%;
         display: flex;
         flex-direction: column;
-        padding: 30px 0;
+        padding-top: 30px;
         font-size: 20px;
         input {
           padding: 32px 20px;
@@ -179,36 +367,36 @@ const RegisterContainer = styled.div`
       }
       .password__requirements {
         padding: 0;
-        margin-bottom: 5px;
         div {
           padding: 0;
           display: flex;
           justify-content: space-between;
           flex-direction: row;
+          margin-bottom: 5px;
           .icon-container {
-            margin-top: 2px;
+            margin-top: 5.5px;
             position: relative;
-            font-size: 14px;
-            border: 3px solid #555;
-            border-radius: 50%;
-            color: #555;
             width: 14px;
             height: 14px;
-            i {
+            transition: opacity .2s ease;
+            img {
               position: absolute;
               top: 50%;
               left: 50%;
               transform: translateX(-50%) translateY(-50%);
               font-weight: 700;
+              transition: opacity .8 ease;
             }
             .hide {
               opacity: 0;
+              transition: .2s ease;
             }
           }
           p {
             width: 95%;
             margin: 0;
             font-size: 20px;
+            transition: color .2s ease;
           }
         }
       }
@@ -225,11 +413,11 @@ const RegisterContainer = styled.div`
         line-height: 1;
         transition: transform .2s ease;
         :hover {
-          transform: scale(1.04);
+          transform: scale(1.02);
           filter: brightness(.8);
         }
         :active {
-          transform: scale(.96)
+          transform: scale(.98)
         }
       }
     }
@@ -264,73 +452,19 @@ const RegisterContainer = styled.div`
       a {
         width: 44px;
         height: 44px;
+        transition: transform .2s ease;
         img {
           width: 100%;
           aspect-ratio: 1;
+        }
+        :hover {
+          transform: scale(1.08);
+        }
+        :active {
+          transform: scale(.92);
         }
       }
     }
   }
   
 `
-    
-
-  //   /* @media (min-width: 320px) {
-  //     margin-left: 10px;
-  //   }
-
-  //   @media (max-width: 375px) {
-  //     margin-left: 10px;
-  //   } */
-
-  //   /* @media (width: 425) {
-  //     margin-left: 10px;
-  //     background-color: aliceblue;
-  //   } */
-  // `
-  // const Account = styled.div`
-  //   margin: 0%;
-  //   padding: 0%;
-  //   width: 200px;
-  //   margin-left: 500px;
-
-  //   /* @media (min-width: 320px) {
-  //     margin-left: 10px;
-  //   }
-
-  //   @media (max-width: 375px) {
-  //     margin-left: 10px;
-  //   } */
-  // `
-  // const Texto = styled.h5`
-  //   margin: 0;
-  // `
-  // const Input = styled.input`
-  //   border-radius: 4px;
-  //   width: 100%;
-  //   height: 30px;
-  //   margin-bottom: 20px;
-  // `
-  // const Raya = styled.div`
-  //   border-top: 1px solid black;
-  //   height: 2px;
-  //   max-width: 200px;
-  //   padding: 0;
-  //   margin: 10px auto 20px auto;
-  // `
-  // const ButtonSvg = styled.a`
-  //   /* border-radius: 50%; */
-  //   background-color: white;
-  //   margin-right: -40px;
-  //   margin-left: 65px;
-  // `
-  // const Button = styled.button`
-  //   cursor: pointer;
-  //   border-radius: 5px;
-  //   border: 1px solid gray;
-  //   margin-left: 50px;
-
-  //   &:hover {
-  //     background-color: red;
-  //   }
-  // `
