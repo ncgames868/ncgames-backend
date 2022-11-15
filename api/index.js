@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const userRouter = require("./routes/users.router")
 require('dotenv').config()
 
 const users = require('./models/db')
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 8080
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+app.use("/user", userRouter)
 app.use('/games', routergames)
 app.use('/', routerVarious)
 
