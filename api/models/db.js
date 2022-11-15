@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 var userSchema = mongoose.Schema({
   user: String,
   pass: String,
   created: Date,
-});
+})
 
 // var gameSchema = mongoose.Schema({
 //   name: String,
@@ -17,20 +17,22 @@ var userSchema = mongoose.Schema({
 //   created: Date,
 // });
 
-const User = mongoose.model('userSchema', schema);
-// const Game = mongoose.model('gameSchema', schema);
+module.exports = mongoose.model('users', userSchema)
 
-const user = new User({
-  // Asignamos valores al modelo
-  user: userFromFront,
-  pass: passFromFront,
-});
+// const User = mongoose.model('userSchema', schema)
+// // const Game = mongoose.model('gameSchema', schema);
 
-user.save(function (err) {
-  // Grabamos en la DB
-  if (err) return handleError(err);
-  // saved!
-});
+// const user = new User({
+//   // Asignamos valores al modelo
+//   user: userFromFront,
+//   pass: passFromFront,
+// })
+
+// user.save(function (err) {
+//   // Grabamos en la DB
+//   if (err) return handleError(err)
+//   // saved!
+// })
 
 /* mongoose types
 
