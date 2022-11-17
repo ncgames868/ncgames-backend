@@ -6,6 +6,7 @@ const baseUrl = 'https://api.rawg.io/api/'
 
 const games = async (req, res) => {
   let { search, platforms, dates, page } = req.query
+
   if (search) search = '&search=' + search + '&search_exact=true'
   else search = ''
   if (platforms) platforms = '&platforms=' + platforms
