@@ -1,24 +1,21 @@
-import styled from 'styled-components';
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import './app.css'
-import Register from './Components/register/Register';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
   return (
-    <AppContainer>
-      <Register />
-    </AppContainer>
+    <HashRouter>
+      {/* Aquí se pondrá el Header */}
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
+        </Routes>
+      {/* Aquí se pondrá el Footer */}
+    </HashRouter>
   );
 }
 
 export default App;
-
-const AppContainer = styled.div`
-  h1,h2,h3,h4,h5 {
-    margin: 0;
-    padding: 0;
-  }
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  font-family: 'Inter';
-`
