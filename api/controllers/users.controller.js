@@ -49,7 +49,18 @@ const loginUser = (req, res) => {
   }
 }
 
+const allUsers = (req, res) => {
+  userModel.find({}, (err, result) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(result)
+    }
+  })
+}
+
 module.exports = {
   registerUser,
   loginUser,
+  allUsers,
 }
