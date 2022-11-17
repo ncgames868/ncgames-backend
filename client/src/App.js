@@ -7,11 +7,13 @@ import RegisterPage from './pages/RegisterPage';
 function App() {
   return (
     <HashRouter>
+      {/* Aquí se pondrá el Header */}
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
         </Routes>
+      {/* Aquí se pondrá el Footer */}
     </HashRouter>
   );
 }
