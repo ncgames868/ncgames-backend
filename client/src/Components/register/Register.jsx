@@ -6,19 +6,23 @@ import EyeSlash from '../../IconsSvg/EyeSlash/EyeSlash.svg'
 import ErrorCheck from '../../IconsSvg/Checks/error-check.svg'
 import InfoCheck from '../../IconsSvg/Checks/info-check.svg'
 import RightCheck from '../../IconsSvg/Checks/right-check.svg'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Register = () => {
-
   // PARA DARLE LA FUNCION DE MOSTRAR/OCULTAR CONTRASEÑA A LOS BOTONES
 
   const [passwordView, setPasswordView] = useState('password')
   const [passwordRepeatView, setPasswordRepeatView] = useState('password')
 
   const handlePasswordView = () => {
-    (passwordView === 'password') ? setPasswordView('text') : setPasswordView('password')
+    passwordView === 'password'
+      ? setPasswordView('text')
+      : setPasswordView('password')
   }
   const handlePasswordRepeatView = () => {
-    (passwordRepeatView === 'password') ? setPasswordRepeatView('text') : setPasswordRepeatView('password')
+    passwordRepeatView === 'password'
+      ? setPasswordRepeatView('text')
+      : setPasswordRepeatView('password')
   }
 
   // PARA DARLE COLOR A LOS CHECKS DEPENDIENDO DE LA CONTRASEÑA QUE ESTAMOS ESCRIBIENDO
@@ -29,54 +33,53 @@ const Register = () => {
   const [checkPasswordRepeatStatus, setCheckPasswordRepeatStatus] = useState({
     xmark: 'hide',
     exclamation: '',
-    check: 'hide'
+    check: 'hide',
   })
 
   const [lengthIsRigth, setLengthIsRigth] = useState('#000')
   const [checkLengthStatus, setCheckLengthStatus] = useState({
     xmark: 'hide',
     exclamation: '',
-    check: 'hide'
+    check: 'hide',
   })
 
   const [containNumbers, setContainNumbers] = useState()
   const [containCapital, setContainCapital] = useState()
   const [containSymbol, setContainSymbol] = useState()
-  const [containRequiredCharacters, setContainRequiredCharacters] = useState('#000')
+  const [containRequiredCharacters, setContainRequiredCharacters] =
+    useState('#000')
   const [checkCharactersStatus, setCheckCharactersStatus] = useState({
     xmark: 'hide',
     exclamation: '',
-    check: 'hide'
+    check: 'hide',
   })
 
   const checkPassword = (e) => {
-
     let currentPassword = e.target.value
     setPassword(currentPassword)
-    
+
     // PARA VERIFICAR LA LONGITUD CORRECTA
-    
+
     if (currentPassword.length >= 8) {
       setLengthIsRigth('#007000')
       setCheckLengthStatus({
         xmark: 'hide',
         exclamation: 'hide',
-        check: ''
+        check: '',
       })
-    } else
-    if (currentPassword.length !== 0) {
+    } else if (currentPassword.length !== 0) {
       setLengthIsRigth('#a80000')
       setCheckLengthStatus({
         xmark: '',
         exclamation: 'hide',
-        check: 'hide'
+        check: 'hide',
       })
     } else {
       setLengthIsRigth('#000')
       setCheckLengthStatus({
         xmark: 'hide',
         exclamation: '',
-        check: 'hide'
+        check: 'hide',
       })
     }
 
@@ -87,8 +90,8 @@ const Register = () => {
     const symbols = " !#$%&'()*+,-.ªº?¿/:;<=>?@][^_`{|}~"
 
     const containANumber = () => {
-      for(let i=0; i < currentPassword.length; i++){
-        if (numbers.indexOf(currentPassword.charAt(i), 0) !== -1 ) {
+      for (let i = 0; i < currentPassword.length; i++) {
+        if (numbers.indexOf(currentPassword.charAt(i), 0) !== -1) {
           return setContainNumbers(true)
         }
       }
@@ -97,8 +100,8 @@ const Register = () => {
     containANumber()
 
     const containACapital = () => {
-      for(let i=0; i < currentPassword.length; i++){
-        if (capitals.indexOf(currentPassword.charAt(i), 0) !== -1 ) {
+      for (let i = 0; i < currentPassword.length; i++) {
+        if (capitals.indexOf(currentPassword.charAt(i), 0) !== -1) {
           return setContainCapital(true)
         }
       }
@@ -107,35 +110,35 @@ const Register = () => {
     containACapital()
 
     const containASymbol = () => {
-      for(let i=0; i < currentPassword.length; i++){
-        if (symbols.indexOf(currentPassword.charAt(i), 0) !== -1 ) {
+      for (let i = 0; i < currentPassword.length; i++) {
+        if (symbols.indexOf(currentPassword.charAt(i), 0) !== -1) {
           return setContainSymbol(true)
         }
       }
       return setContainSymbol(false)
     }
     containASymbol()
-    
+
     if (currentPassword.length === 0) {
       setRepeatPasswordCheck('#000')
       setCheckPasswordRepeatStatus({
         xmark: 'hide',
         exclamation: '',
-        check: 'hide'
+        check: 'hide',
       })
     } else if (currentPassword === repeatedPassword) {
       setRepeatPasswordCheck('#007000')
       setCheckPasswordRepeatStatus({
         xmark: 'hide',
         exclamation: 'hide',
-        check: ''
+        check: '',
       })
     } else {
       setRepeatPasswordCheck('#a80000')
       setCheckPasswordRepeatStatus({
         xmark: '',
         exclamation: 'hide',
-        check: 'hide'
+        check: 'hide',
       })
     }
   }
@@ -143,26 +146,30 @@ const Register = () => {
   // CAMBIAR LOS SIMBOLOS SEGÚN EL ESTADO DE LOS CHECKS
 
   useEffect(() => {
-    if(password.length === 0) {
+    if (password.length === 0) {
       setContainRequiredCharacters('#000')
       setCheckCharactersStatus({
         xmark: 'hide',
         exclamation: '',
-        check: 'hide'
+        check: 'hide',
       })
-    } else if (containNumbers === true || containCapital === true || containSymbol === true) {
+    } else if (
+      containNumbers === true ||
+      containCapital === true ||
+      containSymbol === true
+    ) {
       setContainRequiredCharacters('#007000')
       setCheckCharactersStatus({
         xmark: 'hide',
         exclamation: 'hide',
-        check: ''
+        check: '',
       })
     } else {
       setContainRequiredCharacters('#a80000')
       setCheckCharactersStatus({
         xmark: '',
         exclamation: 'hide',
-        check: 'hide'
+        check: 'hide',
       })
     }
   }, [containNumbers, containCapital, containSymbol, password])
@@ -170,7 +177,6 @@ const Register = () => {
   // PARA VERIFICAR LA IGUALDAD DE LAS CONTRASEÑAS
 
   const checkRepeatPassword = (e) => {
-
     let repeatPassword = e.target.value
     setRepeatedPassword(repeatPassword)
 
@@ -179,85 +185,153 @@ const Register = () => {
       setCheckPasswordRepeatStatus({
         xmark: 'hide',
         exclamation: '',
-        check: 'hide'
+        check: 'hide',
       })
     } else if (repeatPassword === password) {
       setRepeatPasswordCheck('#007000')
       setCheckPasswordRepeatStatus({
         xmark: 'hide',
         exclamation: 'hide',
-        check: ''
+        check: '',
       })
     } else {
       setRepeatPasswordCheck('#a80000')
       setCheckPasswordRepeatStatus({
         xmark: '',
         exclamation: 'hide',
-        check: 'hide'
+        check: 'hide',
       })
     }
   }
 
+  const navigate = useNavigate()
+
   return (
     <RegisterContainer>
-      <div className='register__logo'>LOGO<br />o<br />NOMBRE</div>
-      <h2 className='register__welcome'>¡Welcome!</h2>
-      <div className='register__text-container'>
-        <h2 className='text__account'>Create an account</h2>
-        <p className='text__login'>
-          Already have an account? <a href="/">Login</a>
+      <div className="register__logo">
+        LOGO
+        <br />o<br />
+        NOMBRE
+      </div>
+      <h2 className="register__welcome">¡Welcome!</h2>
+      <div className="register__text-container">
+        <h2 className="text__account">Create an account</h2>
+        <p className="text__login">
+          Already have an account? <Link to={'/login'}>Log in</Link>
         </p>
       </div>
 
-      <div className='register__form-container'>
-        <form className='register__form' action="">
+      <div className="register__form-container">
+        <form className="register__form" action="">
           <div>
             <label htmlFor="email">Email</label>
-            <input className='email__input-container' id ="email" type="email" />
+            <input className="email__input-container" id="email" type="email" />
             <label htmlFor="password">Password</label>
-            <div className='password__input-container'>
-              <input onChange={checkPassword} id ="password" type={passwordView} />
-              <img onClick={handlePasswordView} className='show-btn' src={EyeSlash} alt="" />
+            <div className="password__input-container">
+              <input
+                onChange={checkPassword}
+                id="password"
+                type={passwordView}
+              />
+              <img
+                onClick={handlePasswordView}
+                className="show-btn"
+                src={EyeSlash}
+                alt=""
+              />
             </div>
             <label htmlFor="repeat__password">Repeat Password</label>
-            <div className='password__input-container'>
-              <input onChange={checkRepeatPassword} id ="repeat__password" type={passwordRepeatView} />
-              <img onClick={handlePasswordRepeatView} className='show-btn' src={EyeSlash} alt="" />
+            <div className="password__input-container">
+              <input
+                onChange={checkRepeatPassword}
+                id="repeat__password"
+                type={passwordRepeatView}
+              />
+              <img
+                onClick={handlePasswordRepeatView}
+                className="show-btn"
+                src={EyeSlash}
+                alt=""
+              />
             </div>
           </div>
-          <div className='password__requirements'>
+          <div className="password__requirements">
             <div>
-              <div className="icon-container" style={{color: lengthIsRigth}}>
-                <img className={checkLengthStatus.xmark} src={ErrorCheck} alt="error" />
-                <img className={checkLengthStatus.exclamation} src={InfoCheck} alt="info" />
-                <img className={checkLengthStatus.check} src={RightCheck} alt="check" />
+              <div className="icon-container" style={{ color: lengthIsRigth }}>
+                <img
+                  className={checkLengthStatus.xmark}
+                  src={ErrorCheck}
+                  alt="error"
+                />
+                <img
+                  className={checkLengthStatus.exclamation}
+                  src={InfoCheck}
+                  alt="info"
+                />
+                <img
+                  className={checkLengthStatus.check}
+                  src={RightCheck}
+                  alt="check"
+                />
               </div>
-              <p style={{color: lengthIsRigth}}>At least 8 characters</p>
+              <p style={{ color: lengthIsRigth }}>At least 8 characters</p>
             </div>
             <div>
-              <div className="icon-container" style={{color: containRequiredCharacters}}>
-                <img className={checkCharactersStatus.xmark} src={ErrorCheck} alt="error" />
-                <img className={checkCharactersStatus.exclamation} src={InfoCheck} alt="info" />
-                <img className={checkCharactersStatus.check} src={RightCheck} alt="check" />
+              <div
+                className="icon-container"
+                style={{ color: containRequiredCharacters }}
+              >
+                <img
+                  className={checkCharactersStatus.xmark}
+                  src={ErrorCheck}
+                  alt="error"
+                />
+                <img
+                  className={checkCharactersStatus.exclamation}
+                  src={InfoCheck}
+                  alt="info"
+                />
+                <img
+                  className={checkCharactersStatus.check}
+                  src={RightCheck}
+                  alt="check"
+                />
               </div>
-              <p style={{color: containRequiredCharacters}}>At least one number (0-9), special symbol or one capital letter</p>
+              <p style={{ color: containRequiredCharacters }}>
+                At least one number (0-9), special symbol or one capital letter
+              </p>
             </div>
             <div>
-              <div className="icon-container" style={{color: repeatPasswordCheck}}>
-                <img className={checkPasswordRepeatStatus.xmark} src={ErrorCheck} alt="error" />
-                <img className={checkPasswordRepeatStatus.exclamation} src={InfoCheck} alt="info" />
-                <img className={checkPasswordRepeatStatus.check} src={RightCheck} alt="check" />
+              <div
+                className="icon-container"
+                style={{ color: repeatPasswordCheck }}
+              >
+                <img
+                  className={checkPasswordRepeatStatus.xmark}
+                  src={ErrorCheck}
+                  alt="error"
+                />
+                <img
+                  className={checkPasswordRepeatStatus.exclamation}
+                  src={InfoCheck}
+                  alt="info"
+                />
+                <img
+                  className={checkPasswordRepeatStatus.check}
+                  src={RightCheck}
+                  alt="check"
+                />
               </div>
-              <p style={{color: repeatPasswordCheck}}>Passwords must match</p>
+              <p style={{ color: repeatPasswordCheck }}>Passwords must match</p>
             </div>
           </div>
-          <button className='create__btn'>CREATE AN ACCOUNT</button>
+          <button onClick={() => navigate('/')} className="create__btn">CREATE AN ACCOUNT</button>
         </form>
 
-        <div className='register__separator'>
-          <div className='line left'></div>
+        <div className="register__separator">
+          <div className="line left"></div>
           <p>Or</p>
-          <div className='line right'></div>
+          <div className="line right"></div>
         </div>
 
         <div className="registerOptions__buttons">
@@ -265,10 +339,9 @@ const Register = () => {
             <img src={GoogleSvg} alt="" />
           </a>
           <a href="/">
-          <img src={FacebookSvg} alt="" />
+            <img src={FacebookSvg} alt="" />
           </a>
         </div>
-
       </div>
     </RegisterContainer>
   )
@@ -280,7 +353,7 @@ const RegisterContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 1.2rem;
   .register__logo {
     margin-top: 0px;
     color: black;
@@ -294,7 +367,7 @@ const RegisterContainer = styled.div`
     line-height: 36px;
   }
   .register__text-container {
-    padding: 20px;
+    padding: 1.2rem;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -308,8 +381,48 @@ const RegisterContainer = styled.div`
       margin: 0;
       font-weight: 400;
       font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
       a {
-        color: black;
+        text-decoration: none;
+        color: #555;
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+        transition: color .4s ease;
+        ::before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background-color: #888;
+        }
+        ::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background-color: #000;
+          transform: translate3d(-100%, 0, 0);
+          transition: transform .4s ease;
+        }
+        :hover {
+          color: #000;
+          ::after {
+            transform: translate3d(0, 0, 0);
+          }
+        }
+        :focus {
+          color: #000;
+          ::after {
+            transform: translate3d(0, 0, 0);
+          }
+        }
       }
     }
   }
@@ -317,7 +430,7 @@ const RegisterContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
+    width: 90%;
     max-width: 658px;
     background: rgba(217, 217, 217, 0.1);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -331,10 +444,10 @@ const RegisterContainer = styled.div`
         width: 100%;
         display: flex;
         flex-direction: column;
-        padding-top: 30px;
+        padding-top: 1.8rem;
         font-size: 20px;
         input {
-          padding: 32px 20px;
+          padding: 2rem 1.2rem;
           border: none;
           border-radius: 10px;
           outline: none;
@@ -356,7 +469,7 @@ const RegisterContainer = styled.div`
           transform: translateY(-50%);
           right: 25px;
           cursor: pointer;
-          transition: transform .2s ease;
+          transition: transform 0.2s ease;
           :hover {
             transform: scale(1.1) translateY(-50%);
           }
@@ -378,25 +491,25 @@ const RegisterContainer = styled.div`
             position: relative;
             width: 14px;
             height: 14px;
-            transition: opacity .2s ease;
+            transition: opacity 0.2s ease;
             img {
               position: absolute;
               top: 50%;
               left: 50%;
               transform: translateX(-50%) translateY(-50%);
               font-weight: 700;
-              transition: opacity .8 ease;
+              transition: opacity 0.8 ease;
             }
             .hide {
               opacity: 0;
-              transition: .2s ease;
+              transition: 0.2s ease;
             }
           }
           p {
             width: 95%;
             margin: 0;
             font-size: 20px;
-            transition: color .2s ease;
+            transition: color 0.2s ease;
           }
         }
       }
@@ -404,20 +517,16 @@ const RegisterContainer = styled.div`
         cursor: pointer;
         border: none;
         border-radius: 10px;
-        background-color: #736E6E;
+        background-color: #736e6e;
         color: white;
-        padding: 21px 12px;
+        padding: 1.2rem .6rem;
         align-self: center;
         font-size: 20px;
         font-weight: 700;
         line-height: 1;
-        transition: transform .2s ease;
+        transition: transform 0.2s ease;
         :hover {
-          transform: scale(1.02);
-          filter: brightness(.8);
-        }
-        :active {
-          transform: scale(.98)
+          filter: brightness(0.8);
         }
       }
     }
@@ -452,19 +561,54 @@ const RegisterContainer = styled.div`
       a {
         width: 44px;
         height: 44px;
-        transition: transform .2s ease;
+        transition: transform 0.2s ease;
         img {
           width: 100%;
           aspect-ratio: 1;
         }
         :hover {
-          transform: scale(1.08);
+          transform: scale(1.04);
         }
         :active {
-          transform: scale(.92);
+          transform: scale(0.96);
         }
       }
     }
   }
-  
+  @media (max-width: 600px) {
+    .register__logo {
+      font-size: 21px;
+    }
+    .register__welcome {
+      font-size: 26px;
+    }
+    .register__text-container {
+      .text__account {
+        font-size: 21px;
+      }
+      .text__login {
+        font-size: 16px;
+      }
+    }
+    .register__form-container {
+      .register__form {
+        div {
+          font-size: 16px;
+          input {
+            font-size: 16px;
+          }
+        }
+        .password__requirements {
+          div {
+            p {
+              font-size: 16px;
+            }
+          }
+        }
+        .create__btn {
+          font-size: 16px;
+        }
+      }
+    }
+  }
 `
