@@ -7,9 +7,9 @@ const HomePage = () => {
   const [games, setGames] = useState([])
 
   useEffect(() => {
-    const URL = 'http://twilight-paper-6059.fly.dev/games/'
+    const URL = 'https://nc8-68backend-production.up.railway.app/games'
     axios.get(URL)
-      .then(res => console.log(res.data))
+      .then(res => setGames(res.data.games))
       .catch(err => console.log(err.data))
   }, [])
 

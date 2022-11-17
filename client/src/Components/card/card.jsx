@@ -1,7 +1,6 @@
 import {
-  CardBottom,
   CardContainer,
-  CardImg,
+  CardBottom,
   CardPrice,
   CardTitle,
   CardTop,
@@ -11,11 +10,11 @@ export const Card = ({ title, price, img }) => {
   return (
     <CardContainer>
       <CardTop>
-        <CardImg src={img} />
+        <CardPrice>${price}</CardPrice>
+        <img src={img} alt=''/>
       </CardTop>
       <CardBottom>
         <CardTitle>{title}</CardTitle>
-        <CardPrice>${price}</CardPrice>
       </CardBottom>
     </CardContainer>
   );
