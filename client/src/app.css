@@ -7,5 +7,11 @@ html {
 body {
   margin: 0;
   padding: 0;
-  zoom: 75%;
+  height: 100vh;
+}
+
+.App {
+  min-height: calc(100vh - 338px);
+  position: relative;
+  padding: 169px 0;
 }
