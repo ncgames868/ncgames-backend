@@ -11,8 +11,9 @@ body {
 }
 
 .App {
-  min-height: calc(100vh - 400px);
+  min-height: calc(100vh - 300px);
   position: relative;
-  padding: 200px 0;
+  padding-top: 100px;
+  padding-bottom: 200px;
   background-color: #141518;
 }
