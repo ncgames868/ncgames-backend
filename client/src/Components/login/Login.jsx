@@ -74,14 +74,15 @@ const RegisterContainer = styled.div`
   align-items: center;
   padding: 1.2rem;
   .login__welcome {
+    color: white;
     font-weight: 400;
     text-align: center;
     font-size: 30px;
     line-height: 36px;
   }
   .login__text-container {
+    color: white;
     padding: 1.2rem;
-    background-color: white;
     display: flex;
     flex-direction: column;
     width: 80%;
@@ -111,7 +112,7 @@ const RegisterContainer = styled.div`
           left: 0;
           width: 100%;
           height: 2px;
-          background-color: #888;
+          background-color: #555;
         }
         ::after {
           content: '';
@@ -120,18 +121,18 @@ const RegisterContainer = styled.div`
           left: 0;
           width: 100%;
           height: 2px;
-          background-color: #000;
+          background-color: white;
           transform: translate3d(-100%, 0, 0);
           transition: transform .4s ease;
         }
         :hover {
-          color: #000;
+          color: white;
           ::after {
             transform: translate3d(0, 0, 0);
           }
         }
         :focus {
-          color: #000;
+          color: white;
           ::after {
             transform: translate3d(0, 0, 0);
           }
@@ -159,7 +160,9 @@ const RegisterContainer = styled.div`
         flex-direction: column;
         padding-top: 1.8rem;
         font-size: 20px;
+        color: white;
         input {
+          color: white;
           padding: 2rem 1.2rem;
           border: none;
           border-radius: 10px;
@@ -210,6 +213,7 @@ const RegisterContainer = styled.div`
       }
     }
     .login__separator {
+      color: white;
       text-align: center;
       font-size: 20px;
       position: relative;
@@ -217,7 +221,7 @@ const RegisterContainer = styled.div`
       max-width: 460px;
       .line {
         position: absolute;
-        background: black;
+        background: white;
         width: 45%;
         height: 1px;
       }
@@ -238,6 +242,7 @@ const RegisterContainer = styled.div`
       justify-content: space-around;
       gap: 20px;
       margin-bottom: 20px;
+      color: white;
       .loginOptions__btn-container {
         cursor: pointer;
         display: flex;
@@ -250,6 +255,7 @@ const RegisterContainer = styled.div`
         border-radius: 20px;
         transition: transform 0.2s ease;
         img {
+          margin-top: 6px;
           width: 45px;
           height: 45px;
         }

@@ -29,14 +29,14 @@ const Register = () => {
 
   const [password, setPassword] = useState('')
   const [repeatedPassword, setRepeatedPassword] = useState('')
-  const [repeatPasswordCheck, setRepeatPasswordCheck] = useState('#000')
+  const [repeatPasswordCheck, setRepeatPasswordCheck] = useState('white')
   const [checkPasswordRepeatStatus, setCheckPasswordRepeatStatus] = useState({
     xmark: 'hide',
     exclamation: '',
     check: 'hide',
   })
 
-  const [lengthIsRigth, setLengthIsRigth] = useState('#000')
+  const [lengthIsRigth, setLengthIsRigth] = useState('white')
   const [checkLengthStatus, setCheckLengthStatus] = useState({
     xmark: 'hide',
     exclamation: '',
@@ -47,7 +47,7 @@ const Register = () => {
   const [containCapital, setContainCapital] = useState()
   const [containSymbol, setContainSymbol] = useState()
   const [containRequiredCharacters, setContainRequiredCharacters] =
-    useState('#000')
+    useState('white')
   const [checkCharactersStatus, setCheckCharactersStatus] = useState({
     xmark: 'hide',
     exclamation: '',
@@ -75,7 +75,7 @@ const Register = () => {
         check: 'hide',
       })
     } else {
-      setLengthIsRigth('#000')
+      setLengthIsRigth('white')
       setCheckLengthStatus({
         xmark: 'hide',
         exclamation: '',
@@ -120,7 +120,7 @@ const Register = () => {
     containASymbol()
 
     if (currentPassword.length === 0) {
-      setRepeatPasswordCheck('#000')
+      setRepeatPasswordCheck('white')
       setCheckPasswordRepeatStatus({
         xmark: 'hide',
         exclamation: '',
@@ -147,7 +147,7 @@ const Register = () => {
 
   useEffect(() => {
     if (password.length === 0) {
-      setContainRequiredCharacters('#000')
+      setContainRequiredCharacters('white')
       setCheckCharactersStatus({
         xmark: 'hide',
         exclamation: '',
@@ -181,7 +181,7 @@ const Register = () => {
     setRepeatedPassword(repeatPassword)
 
     if (repeatPassword.length === 0) {
-      setRepeatPasswordCheck('#000')
+      setRepeatPasswordCheck('white')
       setCheckPasswordRepeatStatus({
         xmark: 'hide',
         exclamation: '',
@@ -349,6 +349,7 @@ const RegisterContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 1.2rem;
+  color: white;
   .register__welcome {
     font-weight: 400;
     text-align: center;
@@ -357,7 +358,6 @@ const RegisterContainer = styled.div`
   }
   .register__text-container {
     padding: 1.2rem;
-    background-color: white;
     display: flex;
     flex-direction: column;
     width: 80%;
@@ -375,7 +375,7 @@ const RegisterContainer = styled.div`
       gap: 5px;
       a {
         text-decoration: none;
-        color: #555;
+        color: #666;
         display: inline-block;
         position: relative;
         overflow: hidden;
@@ -387,7 +387,7 @@ const RegisterContainer = styled.div`
           left: 0;
           width: 100%;
           height: 2px;
-          background-color: #888;
+          background-color: #666;
         }
         ::after {
           content: '';
@@ -396,18 +396,18 @@ const RegisterContainer = styled.div`
           left: 0;
           width: 100%;
           height: 2px;
-          background-color: #000;
+          background-color: white;
           transform: translate3d(-100%, 0, 0);
           transition: transform .4s ease;
         }
         :hover {
-          color: #000;
+          color: white;
           ::after {
             transform: translate3d(0, 0, 0);
           }
         }
         :focus {
-          color: #000;
+          color: white;
           ::after {
             transform: translate3d(0, 0, 0);
           }
