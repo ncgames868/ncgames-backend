@@ -3,9 +3,11 @@ const API_KEY = process.env.API_KEY // '60fb2544d2e0470a9b1dd79552c621da'; //
 const baseUrl = 'https://api.rawg.io/api/'
 
 // const options = '&search=walking dead&search_exact=true' //&dates=2019-09-01,2019-09-30&platforms=18,1,7';
+// buscar un solo juego por id
+// https://api.rawg.io/api/games/326243?key=60fb2544d2e0470a9b1dd79552c621da
 
 const games = async (req, res) => {
-  let { search, platforms, dates, page } = req.query
+  let { search, platforms, dates, page } = req.query // falta order y price
 
   if (search) search = '&search=' + search + '&search_exact=true'
   else search = ''
@@ -37,12 +39,12 @@ const games = async (req, res) => {
       id: e.id,
       name: e.name,
       background_image: e.background_image,
-      platforms: e.platforms,
-      categories: e.genres,
+      // platforms: e.platforms,
+      // categories: e.genres,
       //   tags: e.tags,
       released: e.released,
-      esrb: e.esrb_rating,
-      price: 99.99,
+      // esrb: e.esrb_rating,
+      // price: 99.99,
       //   short_screenshots: e.short_screenshots
     })
   })
