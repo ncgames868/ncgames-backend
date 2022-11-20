@@ -1,11 +1,20 @@
 import React from 'react'
-import Register from '../Components/register/Register'
+import { Link } from 'react-router-dom'
+import { Title, LinkedText, TitlesContainer, Subtitle } from '../AppGlobalStyles.js'
+import RegisterForm from '../Components/register/RegisterForm.jsx'
 
 const RegisterPage = () => {
   return (
-    <div>
-      <Register />
-    </div>
+    <section>
+      <TitlesContainer>
+        <Title className="color-gray">¡Welcome!</Title>
+        <div>
+          <Subtitle className="color-gray">Create an account</Subtitle>
+          <LinkedText className="color-gray">Already have an account? <Link to={'/login'}>Log in</Link></LinkedText>
+      </div>
+      </TitlesContainer>
+      <RegisterForm />
+    </section>
   )
 }
 
