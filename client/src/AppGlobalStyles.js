@@ -176,6 +176,9 @@ export const Form = styled.div`
       font-size: 16px;
       font-weight: 400;
       outline: none;
+      :focus {
+        outline: 1px solid #fff6;
+      }
       @media (min-width: 600px) {
         font-size: 20px;
       }
