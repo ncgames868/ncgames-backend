@@ -398,3 +398,109 @@ export const AdvicesContainer = styled.div`
     }
   }
 `
+export const GamesContainer = styled.section`
+  width: 90%;
+  max-width: 1440px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 40px auto;
+  row-gap: 60px;
+`
+export const SearchGamesContainer = styled.div`
+  margin: 0 auto;
+  width: 80%;
+  max-width: 1360px;
+  @media (min-width: 1080px) {
+    position: absolute;
+    z-index: 10;
+    top: 7px;
+    left: 22%;
+    width: 40%;
+    max-width: unset;
+  }
+  span {
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    @media (min-width: 1080px) {
+      width: 100%;
+      max-width: unset;
+    }
+    label {
+      font-size: 21px;
+      @media (min-width: 600px) {
+        font-size: 25px;
+      }
+      @media (min-width: 1080px) {
+        display: none;
+      }
+    }
+    input {
+      box-sizing: border-box;
+      margin: 10px 0;
+      width: 100%;
+      padding: 1.2rem 1.2rem;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      background: rgba(217, 217, 217, 0.3);
+      font-size: 16px;
+      font-weight: 400;
+      outline: none;
+      :focus {
+        outline: 1px solid #fff6;
+      }
+      ::-webkit-search-cancel-button{
+        -webkit-appearance: none;
+        height: 20px;
+        width: 20px;
+        :hover {
+          cursor: pointer;
+        }
+      }
+      @media (min-width: 600px) {
+        font-size: 20px;
+      }
+      @media (min-width: 1080px) {
+        background-color: white;
+        color: #9C9797;
+      }
+    }
+    .errase__button {
+      pointer-events:none;
+      position: absolute;
+      right: 14px;
+      bottom: 26px;
+      height: 20px;
+      width: 20px;
+      :hover {
+        ::after {
+          background-color: white;
+        }
+        ::before {
+          background-color: white;
+        }
+      }
+      ::after {
+        content: '';
+        position: absolute;
+        height: 15px;
+        width: 4px;
+        border-radius: 2px;
+        background-color: #9C9797;
+        transform: rotate(45deg);
+      }
+      ::before {
+        content: '';
+        position: absolute;
+        height: 15px;
+        width: 4px;
+        border-radius: 2px;
+        background-color: #9C9797;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+  
+`
