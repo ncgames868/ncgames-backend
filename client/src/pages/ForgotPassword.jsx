@@ -1,14 +1,17 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { Title, Text, LinkedText, Form, MediumButton, MediumSeparator, TitlesContainer } from '../AppGlobalStyles.js'
 
 const ForgotPassword = () => {
+
+  const navigate = useNavigate()
+
   return (
     <section>
       <TitlesContainer>
         <Title className='color-gray'>Forgot Password?</Title>
       </TitlesContainer>
-      <Form>
+      <Form onSubmit={navigate('/createNewPassword')}>
         <Text>We’ll send you an email with link that allows you to set new password</Text>
         <MediumSeparator></MediumSeparator>
         <form>
