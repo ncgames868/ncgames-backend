@@ -11,6 +11,7 @@ export const DefaultNavbar = () => {
 
   const [menuStatus, setMenuStatus] = useState('hidden')
 
+
   const handleMenuStatus = () => {
     if (menuStatus === 'hidden') {
       setMenuStatus('visible')
@@ -32,6 +33,7 @@ export const DefaultNavbar = () => {
             alt="logo"
           />
         </HeaderLogo>
+        
         <HeaderLinks>
           <li onClick={handleMenuStatus} className="hamburger__btn">
             <HiMenuAlt3 size="60px" />
