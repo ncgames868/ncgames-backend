@@ -4,7 +4,8 @@ const cors = require('cors')
 
 require('dotenv').config()
 
-// const users = require('./models/user')
+const MONGO_PASS = process.env.MONGO_PASS
+const PORT = process.env.PORT || 8080
 
 // Routes
 const userRouter = require('./routes/users.router')
@@ -15,7 +16,6 @@ const routerBestSellers = require('./routes/routerBestSellers')
 
 const app = express()
 app.use(cors())
-const PORT = process.env.PORT || 8080
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -32,7 +32,12 @@ const server = app.listen(PORT, () => {
 
 server.on('error', (error) => console.log('Error: ', error.message))
 
-mongoose.connect('mongodb://localhost/gamesdb', (err) => {
-  if (err) throw err
-  console.log('Successfully conected to GamesDB')
-})
+mongoose.connect(
+  'mongodb+srv://gandhycoder:' +
+    MONGO_PASS +
+    '@cluster0.9gsyi7q.mongodb.net/?retryWrites=true&w=majority',
+  (err) => {
+    if (err) throw err
+    console.log('Successfully conected to GamesDB')
+  }
+)
